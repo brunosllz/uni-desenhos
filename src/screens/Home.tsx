@@ -26,7 +26,7 @@ export function Home() {
         {
           optionsSelected === "order"
             ? <PageIdentifier title='Ordens' hasCount />
-            : <PageIdentifier title='Meu cod' />
+            : <PageIdentifier title='Meu code' />
         }
 
         <HStack
@@ -39,7 +39,7 @@ export function Home() {
             onPress={() => setOptionsSelected('order')}
           />
           <Option
-            title='MEU COD'
+            title='MEU CODE'
             isSelected={optionsSelected === "myCode"}
             onPress={() => setOptionsSelected('myCode')}
           />
