@@ -6,10 +6,15 @@ import { OrderCard } from '../../../components/OrderCard'
 
 import { Feather } from '@expo/vector-icons'
 import { EmptyOrderList } from '../../../components/EmptyOrderList'
+import { useNavigation } from '@react-navigation/native'
 
 export function Order() {
   const [orders, setOrders] = useState(true)
+  const { navigate } = useNavigation()
 
+  function handleNavigateBarCode() {
+    navigate('barCode')
+  }
 
   return (
     <VStack
@@ -34,6 +39,7 @@ export function Order() {
         leftIcon={
           <Icon as={Feather} name="camera" color="gray.100" size="md" />
         }
+        onPress={handleNavigateBarCode}
       />
     </VStack>
   )
