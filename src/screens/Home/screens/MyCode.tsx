@@ -1,6 +1,6 @@
 import { VStack, Icon, Text } from 'native-base'
 
-import { Button } from '../components/Button'
+import { Button } from '../../../components/Button'
 
 import { Feather } from '@expo/vector-icons'
 

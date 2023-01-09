@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { VStack, Icon } from 'native-base'
 
-import { Button } from '../components/Button'
-import { OrderCard } from '../components/OrderCard'
+import { Button } from '../../../components/Button'
+import { OrderCard } from '../../../components/OrderCard'
 
 import { Feather } from '@expo/vector-icons'
-import { EmptyOrderList } from '../components/EmptyOrderList'
+import { EmptyOrderList } from '../../../components/EmptyOrderList'
 
 export function Order() {
   const [orders, setOrders] = useState(true)
