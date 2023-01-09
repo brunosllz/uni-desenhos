@@ -17,6 +17,7 @@ export function PageIdentifier({ title, hasCount = false }: PageIdentifierProps)
         fontWeight="bold"
         color="gray.100"
         fontSize="lg"
+        fontStyle="uppercase"
       >
         {title}
       </Text>
