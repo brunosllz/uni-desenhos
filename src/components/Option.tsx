@@ -13,10 +13,10 @@ export function Option({ title, isSelected = false, ...rest }: Props) {
         w="full"
         bgColor="gray.700"
         borderWidth={1}
-        borderColor={isSelected ? "green.500" : "transparent"}
+        borderColor={isSelected ? "green.300" : "transparent"}
         rounded="sm"
       >
-        <Text color={isSelected ? "green.500" : "gray.500"} fontFamily="heading" fontSize="xs">
+        <Text color={isSelected ? "green.300" : "gray.500"} fontFamily="heading" fontSize="xs">
           {title}
         </Text>
       </Center>
