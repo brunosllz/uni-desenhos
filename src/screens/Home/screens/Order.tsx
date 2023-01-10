@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { VStack, Icon } from 'native-base'
+import { VStack, Icon, HStack } from 'native-base'
 import { useNavigation } from '@react-navigation/native'
 
 import { Button } from '../../../components/Button'
@@ -33,13 +33,24 @@ export function Order() {
         </VStack>
       )}
 
-      <Button
-        title="Scanear"
-        leftIcon={
-          <Icon as={Feather} name="camera" color="gray.100" size="md" />
-        }
-        onPress={handleNavigateBarCode}
-      />
+      <HStack space={3}>
+        <Button
+          title="Scanear"
+          w="80%"
+          leftIcon={
+            <Icon as={Feather} name="camera" color="gray.100" size="md" />
+          }
+          onPress={handleNavigateBarCode}
+        />
+        <Button
+          title=""
+          w="18%"
+          leftIcon={
+            <Icon as={Feather} name="search" color="gray.100" size="md" />
+          }
+          onPress={() => { }}
+        />
+      </HStack>
     </VStack>
   )
 }
