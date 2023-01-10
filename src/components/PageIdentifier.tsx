@@ -5,14 +5,12 @@ interface PageIdentifierProps {
   hasCount?: boolean
 }
 
-export function PageIdentifier({ title, hasCount = false }: PageIdentifierProps) {
+export function PageIdentifier({
+  title,
+  hasCount = false,
+}: PageIdentifierProps) {
   return (
-    <HStack
-      w="full"
-      mt={8}
-      alignItems="center"
-      justifyContent="space-between"
-    >
+    <HStack w="full" mt={8} alignItems="center" justifyContent="space-between">
       <Text
         fontWeight="bold"
         color="gray.100"
@@ -21,16 +19,11 @@ export function PageIdentifier({ title, hasCount = false }: PageIdentifierProps)
       >
         {title}
       </Text>
-      {
-        hasCount && (
-          <Text
-            color="gray.100"
-            fontSize="md"
-          >
-            0
-          </Text>
-        )
-      }
+      {hasCount && (
+        <Text color="gray.100" fontSize="md">
+          0
+        </Text>
+      )}
     </HStack>
   )
 }

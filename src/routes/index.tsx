@@ -4,17 +4,14 @@ import { Home } from '../screens/Home'
 
 const { Navigator, Screen } = createStackNavigator()
 export function Routes() {
-
-
   return (
     <Navigator
       screenOptions={{
-        headerShown: false
+        headerShown: false,
       }}
     >
-      <Screen name='home' component={Home} />
-      <Screen name='barCode' component={BarCode} />
+      <Screen name="home" component={Home} />
+      <Screen name="barCode" component={BarCode} />
     </Navigator>
   )
 }
-

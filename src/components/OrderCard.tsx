@@ -12,27 +12,14 @@ export function OrderCard() {
       alignItems="center"
       justifyContent="space-between"
     >
-      <VStack
-        space={2}
-        alignItems="flex-start"
-      >
-        <Text
-          color="gray.100"
-          fontWeight="bold"
-          fontSize="md"
-        >
+      <VStack space={2} alignItems="flex-start">
+        <Text color="gray.100" fontWeight="bold" fontSize="md">
           Ordem 47456
         </Text>
 
-        <HStack
-          space={2}
-          alignItems="center"
-        >
+        <HStack space={2} alignItems="center">
           <Icon as={Feather} name="clock" color="gray.500" size="sm" />
-          <Text
-            color="gray.500"
-            fontSize="sm"
-          >
+          <Text color="gray.500" fontSize="sm">
             20/01/22 às 14h
           </Text>
         </HStack>
@@ -43,11 +30,11 @@ export function OrderCard() {
         rounded="full"
         bgColor="gray.600"
         _pressed={{
-          bg: "gray.500"
+          bg: 'gray.500',
         }}
       >
         <Icon as={Feather} name="trash-2" color="orange.500" size="lg" />
       </Pressable>
-    </HStack >
+    </HStack>
   )
 }

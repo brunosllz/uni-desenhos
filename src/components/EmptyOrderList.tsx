@@ -1,19 +1,11 @@
-import { VStack, Text, Icon } from 'native-base'
+import { VStack, Text } from 'native-base'
 import EmptyLogo from '../assets/empty-logo.svg'
 
 export function EmptyOrderList() {
   return (
-    <VStack
-      flex={1}
-      alignItems="center"
-      justifyContent="center"
-      mb={8}
-    >
+    <VStack flex={1} alignItems="center" justifyContent="center" mb={8}>
       <EmptyLogo />
-      <Text
-        color="gray.500"
-        fontSize="lg"
-      >
+      <Text color="gray.500" fontSize="lg">
         Você ainda não tem {'\n'}ordens para visualizar
       </Text>
     </VStack>

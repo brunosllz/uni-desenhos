@@ -13,7 +13,7 @@ export function Button({ title, ...rest }: Props) {
       fontSize="md"
       bg="green.500"
       _pressed={{
-        bg: "green.700",
+        bg: 'green.700',
       }}
       _loading={{
         _spinner: { color: 'white' },
