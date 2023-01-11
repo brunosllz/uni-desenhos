@@ -1,12 +1,8 @@
 import { useState } from 'react'
-import { VStack, Icon, HStack } from 'native-base'
-import { useNavigation } from '@react-navigation/native'
+import { VStack } from 'native-base'
 
-import { Button } from '../../../components/Button'
 import { OrderCard } from '../../../components/OrderCard'
 import { EmptyOrderList } from '../../../components/EmptyOrderList'
-
-import { Feather } from '@expo/vector-icons'
 
 interface OrderProps {
   LINK: string
@@ -16,11 +12,6 @@ interface OrderProps {
 
 export function Order() {
   const [orders, setOrders] = useState<OrderProps[]>([])
-  const { navigate } = useNavigation()
-
-  function handleNavigateBarCode() {
-    navigate('barCode')
-  }
 
   return (
     <VStack flex={1} py={8}>
@@ -30,27 +21,9 @@ export function Order() {
       ) : (
         <VStack flex={1}>
           <OrderCard />
+          <OrderCard />
         </VStack>
       )}
-
-      <HStack space={3}>
-        <Button
-          title="Scanear"
-          w="80%"
-          leftIcon={
-            <Icon as={Feather} name="camera" color="gray.100" size="md" />
-          }
-          onPress={handleNavigateBarCode}
-        />
-        <Button
-          title=""
-          w="18%"
-          leftIcon={
-            <Icon as={Feather} name="search" color="gray.100" size="md" />
-          }
-          onPress={() => { }}
-        />
-      </HStack>
     </VStack>
   )
 }
