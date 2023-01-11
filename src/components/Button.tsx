@@ -2,18 +2,19 @@ import { Button as ButtonNativeBase, IButtonProps, Text } from 'native-base'
 
 interface Props extends IButtonProps {
   title: string
+  variant?: 'primary' | 'secondary'
 }
 
-export function Button({ title, ...rest }: Props) {
+export function Button({ title, variant = 'primary', ...rest }: Props) {
   return (
     <ButtonNativeBase
       w="full"
       h={14}
       rounded="sm"
       fontSize="md"
-      bg="green.500"
+      bg={variant === 'primary' ? 'green.500' : 'gray.500'}
       _pressed={{
-        bg: 'green.700',
+        bg: variant === 'primary' ? 'green.700' : 'gray.600',
       }}
       _loading={{
         _spinner: { color: 'white' },
