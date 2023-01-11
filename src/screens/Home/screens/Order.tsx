@@ -8,14 +8,14 @@ import { EmptyOrderList } from '../../../components/EmptyOrderList'
 
 import { Feather } from '@expo/vector-icons'
 
-interface Order {
+interface OrderProps {
   LINK: string
   ITEM: string
   MASC: string
 }
 
 export function Order() {
-  const [orders, setOrders] = useState<Order[]>([])
+  const [orders, setOrders] = useState<OrderProps[]>([])
   const { navigate } = useNavigation()
 
   function handleNavigateBarCode() {
