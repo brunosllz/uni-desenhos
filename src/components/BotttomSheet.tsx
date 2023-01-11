@@ -1,6 +1,7 @@
-import { useEffect, useCallback, forwardRef, useImperativeHandle } from 'react'
+import { useCallback, forwardRef, useImperativeHandle, ReactNode } from 'react'
 import { View } from 'native-base'
 import { StyleSheet, Dimensions } from 'react-native'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { GestureDetector, Gesture } from 'react-native-gesture-handler'
 import Animated, {
   Extrapolate,
@@ -10,16 +11,18 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated'
 
-type BottomSheetProps = {}
-export type BottomSheetRef = {
-  toScroll: (destination: number) => void
+type BottomSheetProps = {
+  children: ReactNode
+}
+export type BottomSheetRefProps = {
+  scrollTo: (destination: number) => void
 }
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 const MAX_TRANSLATE_Y = -SCREEN_HEIGHT / 1.5
 
-export const BottomSheet = forwardRef<BottomSheetProps, BottomSheetRef>(
-  ({ }, ref) => {
+export const BottomSheet = forwardRef<BottomSheetRefProps, BottomSheetProps>(
+  ({ children }, ref) => {
     const translateY = useSharedValue(0)
     const context = useSharedValue({ y: 0 })
 
@@ -42,7 +45,7 @@ export const BottomSheet = forwardRef<BottomSheetProps, BottomSheetRef>(
         translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y)
       })
       .onEnd(() => {
-        if (translateY.value > -SCREEN_HEIGHT / 5) {
+        if (translateY.value > -SCREEN_HEIGHT / 2) {
           scrollTo(0)
         }
 
@@ -64,10 +67,6 @@ export const BottomSheet = forwardRef<BottomSheetProps, BottomSheetRef>(
         transform: [{ translateY: translateY.value }],
       }
     })
-
-    useEffect(() => {
-      scrollTo(-SCREEN_HEIGHT / 1.5)
-    }, [scrollTo])
 
     return (
       <GestureDetector gesture={gesture}>
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'white',
     position: 'absolute',
-    top: SCREEN_HEIGHT,
+    top: getStatusBarHeight() + SCREEN_HEIGHT,
     borderRadius: 35,
   },
 })
