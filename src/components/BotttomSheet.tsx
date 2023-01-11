@@ -74,11 +74,12 @@ export const BottomSheet = forwardRef<BottomSheetRefProps, BottomSheetProps>(
           <View
             w={75}
             h={1}
-            bg="gray.800"
+            bg="gray.500"
             alignSelf="center"
             my={3}
             rounded="full"
           />
+          {children}
         </Animated.View>
       </GestureDetector>
     )
@@ -91,7 +92,8 @@ const styles = StyleSheet.create({
   container: {
     height: SCREEN_HEIGHT,
     width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#29292E',
+    paddingHorizontal: 24,
     position: 'absolute',
     top: getStatusBarHeight() + SCREEN_HEIGHT,
     borderRadius: 35,
