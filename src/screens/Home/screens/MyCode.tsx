@@ -1,8 +1,4 @@
-import { VStack, Icon, Text } from 'native-base'
-
-import { Button } from '../../../components/Button'
-
-import { Feather } from '@expo/vector-icons'
+import { VStack, Text } from 'native-base'
 
 export function MyCode() {
   return (
@@ -15,13 +11,6 @@ export function MyCode() {
           optio excepturi?
         </Text>
       </VStack>
-
-      <Button
-        title="Scanear"
-        leftIcon={
-          <Icon as={Feather} name="camera" color="gray.100" size="md" />
-        }
-      />
     </VStack>
   )
 }
