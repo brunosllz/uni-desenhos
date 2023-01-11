@@ -1,20 +1,29 @@
 import { HStack, Text, VStack, Pressable, Icon } from 'native-base'
 import { Feather } from '@expo/vector-icons'
 
-export function OrderCard() {
+interface OrderCardProps {
+  icon?: 'download' | 'trash-2'
+  variant?: 'primary' | 'secondary'
+}
+
+export function OrderCard({
+  icon = 'trash-2',
+  variant = 'primary',
+}: OrderCardProps) {
   return (
     <HStack
       bg="gray.700"
       rounded="sm"
       borderLeftWidth={8}
-      borderColor="green.300"
+      borderColor={variant === 'primary' ? 'green.300' : 'orange.500'}
       p={5}
       alignItems="center"
       justifyContent="space-between"
+      mb={3}
     >
       <VStack space={2} alignItems="flex-start">
         <Text color="gray.100" fontWeight="bold" fontSize="md">
-          Ordem 47456
+          Ordem 474564
         </Text>
 
         <HStack space={2} alignItems="center">
@@ -33,7 +42,12 @@ export function OrderCard() {
           bg: 'gray.500',
         }}
       >
-        <Icon as={Feather} name="trash-2" color="orange.500" size="lg" />
+        <Icon
+          as={Feather}
+          name={icon}
+          color={variant === 'primary' ? 'orange.500' : 'green.500'}
+          size="lg"
+        />
       </Pressable>
     </HStack>
   )
