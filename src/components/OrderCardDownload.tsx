@@ -24,7 +24,7 @@ export function OrderCardDownload({ order }: OrderCardProps) {
         </Text>
 
         <HStack space={2} alignItems="center">
-          {order.MASC.startsWith('CAMINHO') ? (
+          {order.LINK.startsWith('CAMINHO') ? (
             <>
               <Icon as={Feather} name="x" color="red.500" size="sm" />
               <Text
@@ -58,6 +58,8 @@ export function OrderCardDownload({ order }: OrderCardProps) {
         p={4}
         rounded="full"
         bgColor="gray.600"
+        disabled={order.LINK.startsWith('CAMINHO')}
+        opacity={order.LINK.startsWith('CAMINHO') ? 0.5 : 1}
         _pressed={{
           bg: 'gray.500',
         }}
