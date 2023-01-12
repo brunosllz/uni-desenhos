@@ -1,6 +1,7 @@
 import { HStack, Text, VStack, Pressable, Icon } from 'native-base'
-import { Feather } from '@expo/vector-icons'
 import { OrderProps } from '../screens/Home/screens/Order'
+
+import { Feather } from '@expo/vector-icons'
 
 interface OrderCardProps {
   order: OrderProps

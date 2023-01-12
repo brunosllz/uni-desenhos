@@ -1,4 +1,5 @@
 import { VStack, Text } from 'native-base'
+
 import EmptyLogo from '../assets/empty-logo.svg'
 
 export function EmptyOrderList() {

@@ -14,10 +14,10 @@ import { Controller, useForm } from 'react-hook-form'
 
 import { Button } from '../Button'
 import { OrderProps } from '../../screens/Home/screens/Order'
+import { OrderCardDownload } from '../OrderCardDownload'
+import { EmptyOrderDownloadList } from '../EmptyOrderDownloadList'
 
 import { Feather } from '@expo/vector-icons'
-import { EmptyOrderDownloadList } from '../EmptyOrderDownloadList'
-import { OrderCardDownload } from '../OrderCardDownload'
 
 export function BottomSheetContent() {
   const [orders, setOrders] = useState<OrderProps[]>([])
@@ -30,7 +30,7 @@ export function BottomSheetContent() {
     try {
       setIsLoading(true)
       const response = await api.get(`/desenho/${data.order}`)
-      console.log(response.data)
+
       const orders: OrderProps[] = response.data
       const hasOrders = orders.length > 0
 

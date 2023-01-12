@@ -1,4 +1,4 @@
-import { VStack, Text, HStack } from 'native-base'
+import { Text, HStack } from 'native-base'
 
 interface HeaderProps {
   title: string
