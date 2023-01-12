@@ -1,5 +1,14 @@
 import { useState } from 'react'
-import { VStack, HStack, Divider, ScrollView, Input, Icon } from 'native-base'
+import { Keyboard } from 'react-native'
+import {
+  VStack,
+  HStack,
+  Divider,
+  ScrollView,
+  Input,
+  Icon,
+  useToast,
+} from 'native-base'
 import { api } from '../../lib/axios'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -12,13 +21,43 @@ import { OrderCardDownload } from '../OrderCardDownload'
 
 export function BottomSheetContent() {
   const [orders, setOrders] = useState<OrderProps[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const { handleSubmit, control } = useForm()
+  const toast = useToast()
 
   async function handleSearchOrder(data: any) {
-    const response = await api.get(`/desenho/${data.order}`)
+    try {
+      setIsLoading(true)
+      const response = await api.get(`/desenho/${data.order}`)
+      console.log(response.data)
+      const orders: OrderProps[] = response.data
+      const hasOrders = orders.length > 0
 
-    setOrders(response.data)
+      if (!hasOrders) {
+        toast.show({
+          title: 'Não foi possível encontrar está ordem',
+          placement: 'top',
+          bgColor: 'red.500',
+        })
+        return
+      }
+
+      Keyboard.dismiss()
+      setOrders(orders)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+      toast.show({
+        title: 'Ocorreu um erro ao buscar a ordem, tente novamente!',
+        placement: 'top',
+        bgColor: 'red.500',
+      })
+
+      setIsLoading(false)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const hasOrder = orders.length > 0
@@ -36,6 +75,7 @@ export function BottomSheetContent() {
                 flex={1}
                 placeholder="Número da ordem"
                 placeholderTextColor="gray.500"
+                keyboardType="numeric"
                 color="gray.100"
                 h={12}
                 bgColor="gray.900"
@@ -57,6 +97,8 @@ export function BottomSheetContent() {
             leftIcon={
               <Icon as={Feather} name="search" color="gray.100" size="sm" />
             }
+            disabled={isLoading}
+            isLoading={isLoading}
             onPress={handleSubmit(handleSearchOrder)}
           />
         </HStack>
