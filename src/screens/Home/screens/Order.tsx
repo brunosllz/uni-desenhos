@@ -16,7 +16,7 @@ export function Order() {
   return (
     <VStack flex={1} py={8}>
       {/* flatlist */}
-      {orders ? (
+      {!orders ? (
         <EmptyOrderList />
       ) : (
         <VStack flex={1}>

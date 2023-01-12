@@ -4,11 +4,11 @@ import { api } from '../../lib/axios'
 import { Controller, useForm } from 'react-hook-form'
 
 import { Button } from '../Button'
-import { OrderCard } from '../OrderCard'
 import { OrderProps } from '../../screens/Home/screens/Order'
 
 import { Feather } from '@expo/vector-icons'
 import { EmptyOrderDownloadList } from '../EmptyOrderDownloadList'
+import { OrderCardDownload } from '../OrderCardDownload'
 
 export function BottomSheetContent() {
   const [orders, setOrders] = useState<OrderProps[]>([])
@@ -20,6 +20,8 @@ export function BottomSheetContent() {
 
     setOrders(response.data)
   }
+
+  const hasOrder = orders.length > 0
 
   return (
     <VStack space={6} paddingX={4} paddingY={6} rounded="md">
@@ -63,20 +65,14 @@ export function BottomSheetContent() {
 
       <VStack>
         <ScrollView>
-          {!orders ? (
+          {hasOrder ? (
+            orders.map((order) => {
+              return <OrderCardDownload key={order.ITEM} order={order} />
+            })
+          ) : (
             <>
               <EmptyOrderDownloadList />
             </>
-          ) : (
-            orders.map((order) => {
-              return (
-                <OrderCard
-                  key={order.ITEM}
-                  icon="download"
-                  variant="secondary"
-                />
-              )
-            })
           )}
         </ScrollView>
       </VStack>

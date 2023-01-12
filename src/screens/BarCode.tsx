@@ -3,7 +3,7 @@ import { VStack, Text } from 'native-base'
 import { useState, useEffect, useRef } from 'react'
 import { StyleSheet, Button } from 'react-native'
 import { BottomSheet, BottomSheetRefProps } from '../components/BottomSheet'
-import { BottomSheetContent } from '../components/BottomSheet/BottomSheetContent'
+import { BottomSheetContentDownload } from '../components/BottomSheet/BottomSheetContentDownload'
 
 export function BarCode() {
   const [hasPermission, setHasPermission] = useState(null)
@@ -46,7 +46,7 @@ export function BarCode() {
       )}
 
       <BottomSheet ref={BottomSheetRef}>
-        <BottomSheetContent />
+        <BottomSheetContentDownload />
       </BottomSheet>
     </VStack>
   )
