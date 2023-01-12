@@ -1,11 +1,14 @@
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { VStack, Text } from 'native-base'
-import { useState, useEffect } from 'react'
-import { StyleSheet, Button, Alert } from 'react-native'
+import { useState, useEffect, useRef } from 'react'
+import { StyleSheet, Button } from 'react-native'
+import { BottomSheet, BottomSheetRefProps } from '../components/BottomSheet'
+import { BottomSheetContent } from '../components/BottomSheet/BottomSheetContent'
 
 export function BarCode() {
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
+  const BottomSheetRef = useRef<BottomSheetRefProps>(null)
 
   useEffect(() => {
     async function getBarCodeScannerPermissions() {
@@ -21,7 +24,7 @@ export function BarCode() {
     setScanned(true)
     console.log(data)
     console.log(type)
-    Alert.alert(`Bar code with type ${type} and data ${data} has been scanned!`)
+    BottomSheetRef.current.scrollTo(-550)
   }
 
   if (hasPermission === null) {
@@ -41,6 +44,10 @@ export function BarCode() {
       {scanned && (
         <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />
       )}
+
+      <BottomSheet ref={BottomSheetRef}>
+        <BottomSheetContent />
+      </BottomSheet>
     </VStack>
   )
 }
