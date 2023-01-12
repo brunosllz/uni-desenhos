@@ -4,7 +4,7 @@ import { VStack } from 'native-base'
 import { OrderCard } from '../../../components/OrderCard'
 import { EmptyOrderList } from '../../../components/EmptyOrderList'
 
-interface OrderProps {
+export interface OrderProps {
   LINK: string
   ITEM: string
   MASC: string
@@ -16,7 +16,7 @@ export function Order() {
   return (
     <VStack flex={1} py={8}>
       {/* flatlist */}
-      {!orders ? (
+      {orders ? (
         <EmptyOrderList />
       ) : (
         <VStack flex={1}>
