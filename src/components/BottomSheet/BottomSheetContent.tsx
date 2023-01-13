@@ -69,25 +69,33 @@ export function BottomSheetContent() {
           <Controller
             control={control}
             name="order"
-            rules={{ required: true }}
-            render={({ field: { onChange, value } }) => (
-              <Input
-                flex={1}
-                placeholder="Número da ordem"
-                placeholderTextColor="gray.500"
-                keyboardType="numeric"
-                color="gray.100"
-                h={12}
-                bgColor="gray.900"
-                borderWidth={0}
-                _focus={{
-                  borderWidth: 1,
-                  borderColor: 'green.700',
-                }}
-                onChangeText={onChange}
-                value={value}
-              />
-            )}
+            rules={{
+              required: {
+                value: true,
+                message: 'Você precisa informar o número da ordem',
+              },
+            }}
+            render={({ field: { onChange, value }, formState: { errors } }) => {
+              console.log(errors)
+              return (
+                <Input
+                  flex={1}
+                  placeholder="Número da ordem"
+                  placeholderTextColor="gray.500"
+                  keyboardType="numeric"
+                  color="gray.100"
+                  h={12}
+                  bgColor="gray.900"
+                  borderWidth={0}
+                  _focus={{
+                    borderWidth: 1,
+                    borderColor: 'green.700',
+                  }}
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )
+            }}
           />
 
           <Button

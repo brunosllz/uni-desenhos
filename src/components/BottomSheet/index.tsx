@@ -97,5 +97,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: getStatusBarHeight() + SCREEN_HEIGHT,
     borderRadius: 35,
+    zIndex: 2,
   },
 })
