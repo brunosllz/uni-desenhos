@@ -19,6 +19,7 @@
     "@types/react-native": "~0.70.6",
     "axios": "^1.2.2",
     "babel-plugin-inline-dotenv": "^1.7.0",
+    "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
     "expo": "~47.0.12",
     "expo-barcode-scanner": "~12.1.0",
