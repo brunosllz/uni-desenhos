@@ -6,7 +6,7 @@ import { Feather } from '@expo/vector-icons'
 
 interface OrderCardProps {
   order: FetchOrderProps
-  orderNumber: number
+  orderNumber: string
 }
 
 export function OrderCardDownload({ order, orderNumber }: OrderCardProps) {

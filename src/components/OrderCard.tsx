@@ -9,10 +9,14 @@ interface OrderCardProps {
 }
 
 export function OrderCard({ order }: OrderCardProps) {
-  const { readOrderDraw } = useOrdersFileSystem()
+  const { readOrderDraw, deleteOrderDraw } = useOrdersFileSystem()
 
   async function handleReadOrderDraw() {
-    readOrderDraw(order.uri)
+    await readOrderDraw(order.uri)
+  }
+
+  async function handleDeleteOrderDraw() {
+    await deleteOrderDraw(order.uri)
   }
 
   const slipOderUri = order.uri.split('-')
@@ -58,6 +62,7 @@ export function OrderCard({ order }: OrderCardProps) {
           _pressed={{
             bg: 'gray.500',
           }}
+          onPress={handleDeleteOrderDraw}
         >
           <Icon as={Feather} name="trash-2" color="orange.500" size="lg" />
         </Pressable>

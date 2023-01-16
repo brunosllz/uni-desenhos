@@ -1,4 +1,5 @@
 import { HStack, Text } from 'native-base'
+import { useOrdersFileSystem } from '../hooks/useOrdersFileSystem'
 
 interface PageIdentifierProps {
   title: string
@@ -9,6 +10,8 @@ export function PageIdentifier({
   title,
   hasCount = false,
 }: PageIdentifierProps) {
+  const { orders } = useOrdersFileSystem()
+
   return (
     <HStack w="full" mt={8} alignItems="center" justifyContent="space-between">
       <Text
@@ -21,7 +24,7 @@ export function PageIdentifier({
       </Text>
       {hasCount && (
         <Text color="gray.100" fontSize="md">
-          0
+          {orders.length}
         </Text>
       )}
     </HStack>

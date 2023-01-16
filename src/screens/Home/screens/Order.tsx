@@ -1,28 +1,28 @@
-import { useState } from 'react'
-import { VStack } from 'native-base'
+import { FlatList, VStack } from 'native-base'
 
 import { OrderCard } from '../../../components/OrderCard'
 import { EmptyOrderList } from '../../../components/EmptyOrderList'
-
-export interface OrderProps {
-  LINK: string
-  ITEM: string
-  MASC: string
-}
+import { useOrdersFileSystem } from '../../../hooks/useOrdersFileSystem'
 
 export function Order() {
-  const [orders, setOrders] = useState<OrderProps[]>([])
+  const { orders } = useOrdersFileSystem()
+
+  const hasOrders = orders.length > 0
 
   return (
     <VStack flex={1} py={8}>
-      {/* flatlist */}
-      {!orders ? (
-        <EmptyOrderList />
-      ) : (
+      {hasOrders ? (
         <VStack flex={1}>
-          <OrderCard />
-          <OrderCard />
+          <FlatList
+            data={orders}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => {
+              return <OrderCard order={item} />
+            }}
+          />
         </VStack>
+      ) : (
+        <EmptyOrderList />
       )}
     </VStack>
   )

@@ -11,6 +11,7 @@ import { THEME } from './src/styles/theme'
 
 import { Loading } from './src/components/Loading'
 import { Routes } from './src/routes'
+import { OrderFileSystemContextProvider } from './src/contexts/OrdersFileSystemContext'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -26,7 +27,13 @@ export default function App() {
           backgroundColor="transparent"
           translucent
         />
-        {fontsLoaded ? <Routes /> : <Loading />}
+        {fontsLoaded ? (
+          <OrderFileSystemContextProvider>
+            <Routes />
+          </OrderFileSystemContextProvider>
+        ) : (
+          <Loading />
+        )}
       </NavigationContainer>
     </NativeBaseProvider>
   )

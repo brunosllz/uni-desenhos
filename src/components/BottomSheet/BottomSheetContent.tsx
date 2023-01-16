@@ -11,27 +11,34 @@ import {
 } from 'native-base'
 import { api } from '../../lib/axios'
 import { Controller, useForm } from 'react-hook-form'
+import { FetchOrderProps } from '../../contexts/OrdersFileSystemContext'
 
 import { Button } from '../Button'
-import { OrderProps } from '../../screens/Home/screens/Order'
 import { OrderCardDownload } from '../OrderCardDownload'
 import { EmptyOrderDownloadList } from '../EmptyOrderDownloadList'
 
 import { Feather } from '@expo/vector-icons'
 
+interface SearchOrderFormData {
+  orderNumber: string
+}
+
 export function BottomSheetContent() {
-  const [orders, setOrders] = useState<OrderProps[]>([])
+  const [orders, setOrders] = useState<FetchOrderProps[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
-  const { handleSubmit, control } = useForm()
   const toast = useToast()
 
-  async function handleSearchOrder(data: any) {
+  const { handleSubmit, control, getValues } = useForm<SearchOrderFormData>({
+    defaultValues: { orderNumber: '' },
+  })
+
+  async function handleSearchOrder(data: SearchOrderFormData) {
     try {
       setIsLoading(true)
-      const response = await api.get(`/desenho/${data.order}`)
+      const response = await api.get(`/desenho/${data.orderNumber}`)
 
-      const orders: OrderProps[] = response.data
+      const orders: FetchOrderProps[] = response.data
       const hasOrders = orders.length > 0
 
       if (!hasOrders) {
@@ -68,7 +75,7 @@ export function BottomSheetContent() {
         <HStack space={3}>
           <Controller
             control={control}
-            name="order"
+            name="orderNumber"
             rules={{
               required: {
                 value: true,
@@ -76,7 +83,8 @@ export function BottomSheetContent() {
               },
             }}
             render={({ field: { onChange, value }, formState: { errors } }) => {
-              console.log(errors)
+              const hasError = !!errors.orderNumber?.message
+
               return (
                 <Input
                   flex={1}
@@ -86,10 +94,11 @@ export function BottomSheetContent() {
                   color="gray.100"
                   h={12}
                   bgColor="gray.900"
-                  borderWidth={0}
+                  borderWidth={1}
+                  borderColor={hasError ? 'red.500' : 'transparent'}
                   _focus={{
                     borderWidth: 1,
-                    borderColor: 'green.700',
+                    borderColor: hasError ? 'red.500' : 'green.700',
                   }}
                   onChangeText={onChange}
                   value={value}
@@ -117,12 +126,16 @@ export function BottomSheetContent() {
         <ScrollView>
           {hasOrder ? (
             orders.map((order) => {
-              return <OrderCardDownload key={order.ITEM} order={order} />
+              return (
+                <OrderCardDownload
+                  key={order.ITEM}
+                  order={order}
+                  orderNumber={getValues('orderNumber')}
+                />
+              )
             })
           ) : (
-            <>
-              <EmptyOrderDownloadList />
-            </>
+            <EmptyOrderDownloadList />
           )}
         </ScrollView>
       </VStack>
