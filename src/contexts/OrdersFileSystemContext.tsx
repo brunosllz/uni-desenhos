@@ -6,6 +6,7 @@ import {
   useCallback,
 } from 'react'
 import {
+  deleteAsync,
   documentDirectory,
   downloadAsync,
   getContentUriAsync,
@@ -14,6 +15,7 @@ import { startActivityAsync } from 'expo-intent-launcher'
 import { api } from '../lib/axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import uuid from 'react-native-uuid'
+import { useToast } from 'native-base'
 
 export interface FetchOrderProps {
   LINK: string
@@ -34,9 +36,10 @@ interface OrderFileSystemContextProviderProps {
 interface OrderFileSystemContextProps {
   downloadOrderDraw: (
     order: FetchOrderProps,
-    orderNumber: number,
+    orderNumber: string,
   ) => Promise<void>
   readOrderDraw: (orderUri: string) => Promise<void>
+  deleteOrderDraw: (orderUri: string) => Promise<void>
   isDownload: boolean
   orders: FSOrderProps[]
 }
@@ -50,10 +53,11 @@ export function OrderFileSystemContextProvider({
 }: OrderFileSystemContextProviderProps) {
   const [isDownload, setIsDownload] = useState(false)
   const [orders, setOrders] = useState<FSOrderProps[]>([])
+  const toast = useToast()
 
   async function downloadOrderDraw(
     order: FetchOrderProps,
-    orderNumber: number,
+    orderNumber: string,
   ) {
     try {
       setIsDownload(true)
@@ -72,13 +76,35 @@ export function OrderFileSystemContextProvider({
         date: new Date(),
       }
 
+      const orderExists = orders.find((order) => order.uri === orderUri)
+
+      if (orderExists) {
+        return toast.show({
+          title: 'Você já realizou o download deste ordem!',
+          placement: 'top',
+          bgColor: 'red.500',
+        })
+      }
+
       setOrders((state) => {
         return [orderDownloaded, ...state]
+      })
+
+      toast.show({
+        title: 'Download concluído!',
+        placement: 'top',
+        bgColor: 'green.500',
       })
 
       setIsDownload(false)
     } catch (error) {
       console.log(error)
+
+      toast.show({
+        title: 'Não foi possível fazer o download, tente novamente!',
+        placement: 'top',
+        bgColor: 'red.500',
+      })
       setIsDownload(false)
     } finally {
       setIsDownload(false)
@@ -86,15 +112,44 @@ export function OrderFileSystemContextProvider({
   }
 
   async function readOrderDraw(orderUri: string) {
-    getContentUriAsync(
-      `file:///data/user/0/host.exp.exponent/files/ExperienceData/%2540brunosllz%252Fbar-code/${orderUri}.pdf`,
-    ).then((orderUri) => {
-      startActivityAsync('android.intent.action.VIEW', {
-        data: orderUri,
+    try {
+      const fileUri = await getContentUriAsync(
+        `${documentDirectory}${orderUri}.pdf`,
+      )
+
+      await startActivityAsync('android.intent.action.VIEW', {
+        data: fileUri,
         flags: 1,
-        type: 'application/pdf',
       })
-    })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function deleteOrderDraw(orderUri: string) {
+    try {
+      const deletedOrders = orders.filter((order) => order.uri !== orderUri)
+      await deleteAsync(`${documentDirectory}${orderUri}.pdf`)
+
+      await AsyncStorage.setItem(
+        '@barcode:orders',
+        JSON.stringify(deletedOrders),
+      )
+
+      setOrders(deletedOrders)
+      toast.show({
+        title: 'Ordem deletada!',
+        placement: 'top',
+        bgColor: 'green.500',
+      })
+    } catch (error) {
+      toast.show({
+        title: 'Não foi possível deletar a ordem, tente novamente!',
+        placement: 'top',
+        bgColor: 'red.500',
+      })
+      console.log(error)
+    }
   }
 
   const loadingOrders = useCallback(async () => {
@@ -124,7 +179,13 @@ export function OrderFileSystemContextProvider({
 
   return (
     <OrdersFileSystemContext.Provider
-      value={{ downloadOrderDraw, isDownload, orders, readOrderDraw }}
+      value={{
+        isDownload,
+        orders,
+        downloadOrderDraw,
+        readOrderDraw,
+        deleteOrderDraw,
+      }}
     >
       {children}
     </OrdersFileSystemContext.Provider>
