@@ -1,5 +1,7 @@
 import { HStack, Text, VStack, Pressable, Icon } from 'native-base'
 import { FSOrderProps } from '../contexts/OrdersFileSystemContext'
+import { format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
 import { Feather } from '@expo/vector-icons'
 import { useOrdersFileSystem } from '../hooks/useOrdersFileSystem'
@@ -50,7 +52,7 @@ export function OrderCard({ order }: OrderCardProps) {
               numberOfLines={1}
               ellipsizeMode="tail"
             >
-              {String(order.date)}
+              {format(order.date, "dd/MM/yy 'às' H'h'", { locale: ptBR })}
             </Text>
           </HStack>
         </VStack>
