@@ -2,12 +2,19 @@ import { HStack, Text, VStack, Pressable, Icon } from 'native-base'
 import { OrderProps } from '../screens/Home/screens/Order'
 
 import { Feather } from '@expo/vector-icons'
+import { useOrdersFileSystem } from '../hooks/useOrdersFileSystem'
 
 interface OrderCardProps {
   order: OrderProps
 }
 
 export function OrderCardDownload({ order }: OrderCardProps) {
+  const { downloadOrderDraw, isDownload } = useOrdersFileSystem()
+
+  async function handleDownloadDraw() {
+    await downloadOrderDraw(order)
+  }
+
   return (
     <HStack
       bg="gray.700"
@@ -59,8 +66,9 @@ export function OrderCardDownload({ order }: OrderCardProps) {
         p={4}
         rounded="full"
         bgColor="gray.600"
-        disabled={order.LINK.startsWith('CAMINHO')}
+        disabled={order.LINK.startsWith('CAMINHO') || isDownload}
         opacity={order.LINK.startsWith('CAMINHO') ? 0.5 : 1}
+        onPress={handleDownloadDraw}
         _pressed={{
           bg: 'gray.500',
         }}
