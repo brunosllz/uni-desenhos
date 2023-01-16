@@ -1,18 +1,19 @@
 import { HStack, Text, VStack, Pressable, Icon } from 'native-base'
-import { OrderProps } from '../screens/Home/screens/Order'
-
-import { Feather } from '@expo/vector-icons'
+import { FetchOrderProps } from '../contexts/OrdersFileSystemContext'
 import { useOrdersFileSystem } from '../hooks/useOrdersFileSystem'
 
+import { Feather } from '@expo/vector-icons'
+
 interface OrderCardProps {
-  order: OrderProps
+  order: FetchOrderProps
+  orderNumber: number
 }
 
-export function OrderCardDownload({ order }: OrderCardProps) {
+export function OrderCardDownload({ order, orderNumber }: OrderCardProps) {
   const { downloadOrderDraw, isDownload } = useOrdersFileSystem()
 
   async function handleDownloadDraw() {
-    await downloadOrderDraw(order)
+    await downloadOrderDraw(order, orderNumber)
   }
 
   return (
