@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useEffect,
-  useState,
-  useCallback,
-} from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import {
   deleteAsync,
   documentDirectory,
@@ -16,6 +10,7 @@ import { api } from '../lib/axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import uuid from 'react-native-uuid'
 import { useToast } from 'native-base'
+import { saveOrderStorage } from '../utils/saveOrdersStorage'
 
 export interface FetchOrderProps {
   LINK: string
@@ -26,7 +21,7 @@ export interface FetchOrderProps {
 export interface FSOrderProps {
   id: string
   uri: string
-  date: Date
+  date: string | Date
 }
 
 interface OrderFileSystemContextProviderProps {
@@ -80,12 +75,13 @@ export function OrderFileSystemContextProvider({
 
       if (orderExists) {
         return toast.show({
-          title: 'Você já realizou o download deste ordem!',
+          title: 'Você já realizou o download desta ordem!',
           placement: 'top',
           bgColor: 'red.500',
         })
       }
 
+      await saveOrderStorage(orderDownloaded)
       setOrders((state) => {
         return [orderDownloaded, ...state]
       })
@@ -120,6 +116,7 @@ export function OrderFileSystemContextProvider({
       await startActivityAsync('android.intent.action.VIEW', {
         data: fileUri,
         flags: 1,
+        type: 'application/pdf',
       })
     } catch (error) {
       console.log(error)
@@ -152,30 +149,20 @@ export function OrderFileSystemContextProvider({
     }
   }
 
-  const loadingOrders = useCallback(async () => {
-    const findOrders = await AsyncStorage.getItem('@barcode:orders')
+  useEffect(() => {
+    async function loadingOrders() {
+      const findOrders = await AsyncStorage.getItem('@barcode:orders')
 
-    if (!findOrders) {
-      return
+      if (!findOrders) {
+        return
+      }
+
+      const ParseOrders = JSON.parse(findOrders)
+      setOrders(ParseOrders)
     }
 
-    const ParseOrders = JSON.parse(findOrders)
-
-    setOrders(ParseOrders)
-  }, [])
-
-  useEffect(() => {
-    async function SaveDownloadOrderDraw() {
-      const JSONOrders = JSON.stringify(orders)
-      await AsyncStorage.setItem('@barcode:orders', JSONOrders)
-    }
-
-    SaveDownloadOrderDraw()
-  }, [orders])
-
-  useEffect(() => {
     loadingOrders()
-  }, [loadingOrders])
+  }, [])
 
   return (
     <OrdersFileSystemContext.Provider

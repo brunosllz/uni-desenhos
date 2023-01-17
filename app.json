@@ -5,6 +5,19 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "com.unicasamoveis.bar-code",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.unicasamoveis.bar-code",
+      "versionCode": 1
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9d56e31a-a829-4ee7-802f-d649c0327cb0"
+      }
+    }
   }
 }

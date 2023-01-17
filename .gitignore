@@ -57,3 +57,5 @@ dist/
 
 # ENV
 .env
+
+eas.*
