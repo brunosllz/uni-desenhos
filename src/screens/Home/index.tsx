@@ -12,7 +12,7 @@ import { BottomSheet, BottomSheetRefProps } from '../../components/BottomSheet'
 import { Button } from '../../components/Button'
 
 import { Feather } from '@expo/vector-icons'
-import { BottomSheetContent } from '../../components/BottomSheet/BottomSheetContent'
+import { BottomSheetOrderContent } from '../../components/BottomSheet/BottomSheetOrderContent'
 
 export function Home() {
   const [optionsSelected, setOptionsSelected] = useState<'order' | 'myCode'>(
@@ -23,7 +23,11 @@ export function Home() {
   const { navigate } = useNavigation()
 
   function handleNavigateBarCode() {
-    navigate('barCode')
+    navigate('barCodeCamera')
+  }
+
+  function handleNavigateMyCode() {
+    navigate('myCodeCamera')
   }
 
   return (
@@ -59,28 +63,34 @@ export function Home() {
         <HStack space={3} mb={8}>
           <Button
             title="Scanear"
-            w="80%"
+            w={optionsSelected === 'order' ? '80%' : 'full'}
             leftIcon={
               <Icon as={Feather} name="camera" color="gray.100" size="md" />
             }
-            onPress={handleNavigateBarCode}
-          />
-          <Button
-            title=""
-            variant="secondary"
-            w="18%"
-            leftIcon={
-              <Icon as={Feather} name="search" color="gray.100" size="md" />
+            onPress={
+              optionsSelected === 'order'
+                ? handleNavigateBarCode
+                : handleNavigateMyCode
             }
-            onPress={() => {
-              BottomSheetRef.current.scrollTo(-550)
-            }}
           />
+          {optionsSelected === 'order' && (
+            <Button
+              title=""
+              variant="secondary"
+              w="18%"
+              leftIcon={
+                <Icon as={Feather} name="search" color="gray.100" size="md" />
+              }
+              onPress={() => {
+                BottomSheetRef.current.scrollTo(-550)
+              }}
+            />
+          )}
         </HStack>
       </VStack>
 
       <BottomSheet ref={BottomSheetRef}>
-        <BottomSheetContent />
+        <BottomSheetOrderContent />
       </BottomSheet>
     </GestureHandlerRootView>
   )

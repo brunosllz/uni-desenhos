@@ -23,7 +23,7 @@ interface SearchOrderFormData {
   orderNumber: string
 }
 
-export function BottomSheetContent() {
+export function BottomSheetOrderContent() {
   const [orders, setOrders] = useState<FetchOrderProps[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
@@ -129,7 +129,7 @@ export function BottomSheetContent() {
               return (
                 <OrderCardDownload
                   key={order.ITEM}
-                  order={order}
+                  orderData={order}
                   orderNumber={getValues('orderNumber')}
                 />
               )

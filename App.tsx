@@ -1,3 +1,4 @@
+import 'expo-dev-client'
 import 'react-native-gesture-handler'
 import React from 'react'
 import {

@@ -116,7 +116,7 @@ export function OrderFileSystemContextProvider({
       await startActivityAsync('android.intent.action.VIEW', {
         data: fileUri,
         flags: 1,
-        type: 'application/pdf',
+        // type: 'application/pdf', - infer type
       })
     } catch (error) {
       console.log(error)
@@ -137,7 +137,7 @@ export function OrderFileSystemContextProvider({
       toast.show({
         title: 'Ordem deletada!',
         placement: 'top',
-        bgColor: 'green.500',
+        bgColor: 'orange.500',
       })
     } catch (error) {
       toast.show({

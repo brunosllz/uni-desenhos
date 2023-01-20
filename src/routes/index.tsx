@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import { BarCode } from '../screens/BarCode'
+import { BarCodeCamera } from '../screens/BarCodeCamera'
 import { Home } from '../screens/Home'
+import { MyCodeCamera } from '../screens/MyCodeCamera'
 
 const { Navigator, Screen } = createStackNavigator()
 export function Routes() {
@@ -11,7 +12,8 @@ export function Routes() {
       }}
     >
       <Screen name="home" component={Home} />
-      <Screen name="barCode" component={BarCode} />
+      <Screen name="barCodeCamera" component={BarCodeCamera} />
+      <Screen name="myCodeCamera" component={MyCodeCamera} />
     </Navigator>
   )
 }

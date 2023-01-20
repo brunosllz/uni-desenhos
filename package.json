@@ -1,5 +1,5 @@
 {
-  "name": "bar-code",
+  "name": "UniDesenhos",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -44,7 +44,7 @@
     "react-native-svg-transformer": "^1.0.0",
     "react-native-uuid": "^2.0.1",
     "react-native-vision-camera": "^2.15.2",
-    "vision-camera-dynamsoft-barcode-reader": "^0.6.0"
+    "vision-camera-code-scanner": "^0.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

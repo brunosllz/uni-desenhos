@@ -1,4 +1,4 @@
-package com.barcode.newarchitecture;
+package com.unicasamoveis.bar_code.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -20,9 +20,9 @@ import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.barcode.BuildConfig;
-import com.barcode.newarchitecture.components.MainComponentsRegistry;
-import com.barcode.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.unicasamoveis.bar_code.BuildConfig;
+import com.unicasamoveis.bar_code.newarchitecture.components.MainComponentsRegistry;
+import com.unicasamoveis.bar_code.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

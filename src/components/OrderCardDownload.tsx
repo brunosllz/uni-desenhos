@@ -5,15 +5,15 @@ import { useOrdersFileSystem } from '../hooks/useOrdersFileSystem'
 import { Feather } from '@expo/vector-icons'
 
 interface OrderCardProps {
-  order: FetchOrderProps
+  orderData: FetchOrderProps
   orderNumber: string
 }
 
-export function OrderCardDownload({ order, orderNumber }: OrderCardProps) {
+export function OrderCardDownload({ orderData, orderNumber }: OrderCardProps) {
   const { downloadOrderDraw, isDownload } = useOrdersFileSystem()
 
   async function handleDownloadDraw() {
-    await downloadOrderDraw(order, orderNumber)
+    await downloadOrderDraw(orderData, orderNumber)
   }
 
   return (
@@ -29,11 +29,11 @@ export function OrderCardDownload({ order, orderNumber }: OrderCardProps) {
     >
       <VStack space={2} alignItems="flex-start">
         <Text color="gray.100" fontWeight="bold" fontSize="md">
-          Item {order.ITEM}
+          Item {orderData.ITEM}
         </Text>
 
         <HStack space={2} alignItems="center">
-          {order.LINK.startsWith('CAMINHO') ? (
+          {orderData.LINK.startsWith('CAMINHO') ? (
             <>
               <Icon as={Feather} name="x" color="red.500" size="sm" />
               <Text
@@ -67,8 +67,8 @@ export function OrderCardDownload({ order, orderNumber }: OrderCardProps) {
         p={4}
         rounded="full"
         bgColor="gray.600"
-        disabled={order.LINK.startsWith('CAMINHO') || isDownload}
-        opacity={order.LINK.startsWith('CAMINHO') ? 0.5 : 1}
+        disabled={orderData.LINK.startsWith('CAMINHO') || isDownload}
+        opacity={orderData.LINK.startsWith('CAMINHO') ? 0.5 : 1}
         onPress={handleDownloadDraw}
         _pressed={{
           bg: 'gray.500',

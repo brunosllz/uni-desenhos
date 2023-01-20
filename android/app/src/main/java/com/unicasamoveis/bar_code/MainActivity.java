@@ -1,4 +1,4 @@
-package com.barcode;
+package com.unicasamoveis.bar_code;
 
 import android.os.Build;
 import android.os.Bundle;

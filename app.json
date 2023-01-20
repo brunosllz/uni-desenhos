@@ -1,22 +1,36 @@
 {
   "expo": {
-    "name": "bar-code",
-    "slug": "bar-code",
+    "name": "UniDesenhos",
+    "slug": "uni-desenhos",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.unicasamoveis.bar-code",
-      "buildNumber": "1.0.0"
+      "bundleIdentifier": "com.unicasamoveis.uni_desenhos",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera."
+      }
     },
     "android": {
-      "package": "com.unicasamoveis.bar-code",
-      "versionCode": 1
+      "package": "com.unicasamoveis.uni_desenhos",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
     },
+    "plugins": [
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera."
+        }
+      ]
+    ],
     "extra": {
       "eas": {
-        "projectId": "9d56e31a-a829-4ee7-802f-d649c0327cb0"
+        "projectId": "4f0b8e93-d61d-415a-bbc7-4401ca8c2c26"
       }
     }
   }
