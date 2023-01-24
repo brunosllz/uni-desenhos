@@ -16,8 +16,8 @@ import { useNavigation } from '@react-navigation/native'
 import { Polygon, Svg } from 'react-native-svg'
 
 export function MyCodeCamera() {
-  const [frameWidth, setFrameWidth] = useState(1280)
-  const [frameHeight, setFrameHeight] = useState(720)
+  const [frameWidth] = useState(1280)
+  const [frameHeight] = useState(720)
 
   const { colors } = useTheme()
   const { goBack } = useNavigation()
@@ -49,7 +49,7 @@ export function MyCodeCamera() {
 
   function getViewBox() {
     const frameSize = getFrameSize()
-    const viewBox = '0 0 ' + frameSize[0] + ' ' + frameSize[1]
+    const viewBox = `0 0  ${frameSize[0]} ${frameSize[1]}`
     return viewBox
   }
 

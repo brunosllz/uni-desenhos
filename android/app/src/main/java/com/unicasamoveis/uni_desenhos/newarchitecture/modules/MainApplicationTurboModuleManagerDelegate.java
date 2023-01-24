@@ -1,4 +1,4 @@
-package com.unicasamoveis.bar_code.newarchitecture.modules;
+package com.unicasamoveis.uni_desenhos.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

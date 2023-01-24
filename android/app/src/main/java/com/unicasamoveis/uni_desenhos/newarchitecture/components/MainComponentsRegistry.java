@@ -1,4 +1,4 @@
-package com.unicasamoveis.bar_code.newarchitecture.components;
+package com.unicasamoveis.uni_desenhos.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
