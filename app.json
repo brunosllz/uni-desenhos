@@ -35,7 +35,7 @@
     },
     "splash": {
       "image": "./assets/splash.png",
-      "backgroundColor": "#1c1917"
+      "backgroundColor": "#1C1917"
     }
   }
 }
