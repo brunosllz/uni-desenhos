@@ -65,6 +65,7 @@ export function BarCodeCamera() {
       toast.show({
         title: 'Não foi possível encontrar está ordem',
         placement: 'top',
+        duration: 1500,
         bgColor: 'red.500',
       })
 

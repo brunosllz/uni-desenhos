@@ -64,6 +64,7 @@ export function OrderFileSystemContextProvider({
         return toast.show({
           title: 'Você já realizou o download desta ordem!',
           placement: 'top',
+          duration: 1500,
           bgColor: 'red.500',
         })
       }
@@ -79,6 +80,7 @@ export function OrderFileSystemContextProvider({
       if (status === 404) {
         return toast.show({
           title: 'Ocorreu um problema ao fazer o download, tente novamente!',
+          duration: 1500,
           placement: 'top',
           bgColor: 'red.500',
         })
@@ -97,6 +99,7 @@ export function OrderFileSystemContextProvider({
 
       toast.show({
         title: 'Download concluído!',
+        duration: 1500,
         placement: 'top',
         bgColor: 'green.500',
       })
@@ -107,6 +110,7 @@ export function OrderFileSystemContextProvider({
 
       toast.show({
         title: 'Não foi possível fazer o download, tente novamente!',
+        duration: 1500,
         placement: 'top',
         bgColor: 'red.500',
       })
@@ -146,12 +150,14 @@ export function OrderFileSystemContextProvider({
       toast.show({
         title: 'Ordem deletada!',
         placement: 'top',
+        duration: 1500,
         bgColor: 'orange.500',
       })
     } catch (error) {
       toast.show({
         title: 'Não foi possível deletar a ordem, tente novamente!',
         placement: 'top',
+        duration: 1500,
         bgColor: 'red.500',
       })
       console.log(error)

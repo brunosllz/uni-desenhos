@@ -44,6 +44,7 @@ export function BottomSheetOrderContent() {
       if (!hasOrders) {
         toast.show({
           title: 'Não foi possível encontrar está ordem',
+          duration: 1500,
           placement: 'top',
           bgColor: 'red.500',
         })
@@ -57,6 +58,7 @@ export function BottomSheetOrderContent() {
       console.log(error)
       toast.show({
         title: 'Ocorreu um erro ao buscar a ordem, tente novamente!',
+        duration: 1500,
         placement: 'top',
         bgColor: 'red.500',
       })
