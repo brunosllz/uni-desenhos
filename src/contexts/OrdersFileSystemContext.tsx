@@ -59,11 +59,19 @@ export function OrderFileSystemContextProvider({
       const response = await api.post('/files', { link: order.LINK })
       const orderUri = `${order.ITEM}-${orderNumber}`
 
-      await downloadAsync(
+      const { status } = await downloadAsync(
         `${process.env.BASE_API_URL}/files/download/${response.data.id}`,
         `${documentDirectory}${orderUri}.pdf`,
         {},
       )
+
+      if (status === 404) {
+        return toast.show({
+          title: 'Ocorreu um problema ao fazer o download, tente novamente!',
+          placement: 'top',
+          bgColor: 'red.500',
+        })
+      }
 
       const orderDownloaded = {
         id: String(uuid.v4()),
