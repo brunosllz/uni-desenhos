@@ -32,6 +32,7 @@ export function BarCodeCamera() {
 
   const toast = useToast()
   const orderNumberRef = useRef('')
+  const { navigate, goBack } = useNavigation()
 
   const onOpenDownloadScreenAnimation = useAnimationState({
     show: {
@@ -41,8 +42,6 @@ export function BarCodeCamera() {
       opacity: 0,
     },
   })
-
-  const { navigate, goBack } = useNavigation()
 
   async function handleBarCodeScanned({ type, data: orderNumberData }) {
     try {

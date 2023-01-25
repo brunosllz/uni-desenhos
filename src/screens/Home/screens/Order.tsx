@@ -15,6 +15,8 @@ export function Order() {
         <VStack flex={1}>
           <FlatList
             data={orders}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 50 }}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => {
               return <OrderCard order={item} />
