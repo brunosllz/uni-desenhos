@@ -56,14 +56,14 @@ export function BottomSheetOrderContent() {
       setIsLoading(false)
     } catch (error) {
       console.log(error)
+      setIsLoading(false)
+
       toast.show({
         title: 'Ocorreu um erro ao buscar a ordem, tente novamente!',
         duration: 1500,
         placement: 'top',
         bgColor: 'red.500',
       })
-
-      setIsLoading(false)
     } finally {
       setIsLoading(false)
     }

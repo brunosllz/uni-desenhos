@@ -1,5 +1,13 @@
-import { useState, useEffect } from 'react'
-import { VStack, Text, View, useToast, Divider, HStack } from 'native-base'
+import { useState, useEffect, useRef } from 'react'
+import {
+  VStack,
+  Text,
+  View,
+  useToast,
+  Divider,
+  HStack,
+  Spinner,
+} from 'native-base'
 import { StyleSheet } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
@@ -14,19 +22,16 @@ import { Loading } from '../components/Loading'
 import { Button } from '../components/Button'
 
 import { CaretLeft } from 'phosphor-react-native'
+import { AxiosError } from 'axios'
 
 export function BarCodeCamera() {
   const [hasPermission, setHasPermission] = useState(null)
-  const [orders, setOrders] = useState<FetchOrderProps[]>([
-    {
-      ITEM: 'U900008',
-      LINK: './ENGENHARIA/DESENHOS-FABRICA APONTAMENTO/EDITAVEIS/PORTA PINTADAA/U900008.PDF',
-      MASC: '399#109#1011-COLOR SHINE MONROE',
-    },
-  ])
-  const [scanned, setScanned] = useState(false)
+  const [orders, setOrders] = useState<FetchOrderProps[]>([])
+  const [onScanned, setonScanned] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const toast = useToast()
+  const orderNumberRef = useRef('')
 
   const onOpenDownloadScreenAnimation = useAnimationState({
     show: {
@@ -39,6 +44,63 @@ export function BarCodeCamera() {
 
   const { navigate, goBack } = useNavigation()
 
+  async function handleBarCodeScanned({ type, data: orderNumberData }) {
+    try {
+      setonScanned(true)
+      setIsLoading(true)
+
+      const response = await api.get(`/desenho/${orderNumberData}`)
+
+      orderNumberRef.current = orderNumberData
+
+      const orders: FetchOrderProps[] = response.data
+      const hasOrder = orders.length > 0
+
+      if (!hasOrder) {
+        toast.show({
+          title: 'Não foi possível encontrar está ordem',
+          placement: 'top',
+          duration: 1500,
+          bgColor: 'red.500',
+        })
+        setIsLoading(false)
+        setonScanned(false)
+        return
+      }
+
+      onOpenDownloadScreenAnimation.transitionTo('show')
+      setOrders(orders)
+      setIsLoading(false)
+    } catch (error) {
+      setonScanned(false)
+      setIsLoading(false)
+
+      if (error instanceof AxiosError) {
+        return toast.show({
+          title: 'Ocorreu um problema ao buscar a ordem',
+          placement: 'top',
+          duration: 1500,
+          bgColor: 'red.500',
+        })
+      }
+
+      return toast.show({
+        title: 'Ocorreu um problema ao scannear a ordem',
+        placement: 'top',
+        duration: 1500,
+        bgColor: 'red.500',
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  function handleScanAgain() {
+    onOpenDownloadScreenAnimation.transitionTo('hide')
+    setonScanned(false)
+    setIsLoading(false)
+  }
+
   useEffect(() => {
     async function getBarCodeScannerPermissions() {
       const { status } = await BarCodeScanner.requestPermissionsAsync()
@@ -49,37 +111,6 @@ export function BarCodeCamera() {
     getBarCodeScannerPermissions()
   }, [])
 
-  let orderNumber = ''
-
-  async function handleBarCodeScanned({ type, data: orderNumberData }) {
-    setScanned(true)
-
-    const response = await api.get(`/desenho/${orderNumberData}`)
-    orderNumber = orderNumberData
-
-    const orders = response.data
-
-    const hasOrder = orders > 0
-
-    if (!hasOrder) {
-      toast.show({
-        title: 'Não foi possível encontrar está ordem',
-        placement: 'top',
-        duration: 1500,
-        bgColor: 'red.500',
-      })
-
-      return setScanned(false)
-    }
-
-    onOpenDownloadScreenAnimation.transitionTo('show')
-    setOrders(orders)
-  }
-
-  function handleScanAgain() {
-    onOpenDownloadScreenAnimation.transitionTo('hide')
-    setScanned(false)
-  }
   useEffect(() => {
     onOpenDownloadScreenAnimation.transitionTo('hide')
   }, [onOpenDownloadScreenAnimation])
@@ -99,10 +130,27 @@ export function BarCodeCamera() {
     )
   }
 
+  if (isLoading) {
+    return (
+      <VStack
+        flex={1}
+        alignItems="center"
+        justifyContent="center"
+        bg="gray.900"
+        space={2}
+      >
+        <Spinner color="green.500" />
+        <Text color="white" fontSize="lg">
+          Buscando ordem
+        </Text>
+      </VStack>
+    )
+  }
+
   return (
     <VStack flex={1} bg="gray.600">
       <VStack flex={1} justifyContent="space-between">
-        {!scanned && (
+        {!onScanned && (
           <>
             <View
               h="1/5"
@@ -121,20 +169,19 @@ export function BarCodeCamera() {
               }}
               onPress={goBack}
             />
+
+            <BarCodeScanner
+              onBarCodeScanned={onScanned ? undefined : handleBarCodeScanned}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View
+              h="1/5"
+              style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
+              w="full"
+            />
           </>
         )}
-
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFill}
-        />
-
-        <View
-          h="1/5"
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
-          w="full"
-          zIndex={0}
-        />
       </VStack>
 
       <MotiView
@@ -162,7 +209,7 @@ export function BarCodeCamera() {
               <OrderCardDownload
                 key={order.ITEM}
                 orderData={order}
-                orderNumber={orderNumber}
+                orderNumber={orderNumberRef.current}
               />
             )
           })}
