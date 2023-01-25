@@ -56,20 +56,7 @@ export function OrderFileSystemContextProvider({
   ) {
     try {
       setIsDownload(true)
-      const response = await api.post('/files', { link: order.LINK })
       const orderUri = `${order.ITEM}-${orderNumber}`
-
-      await downloadAsync(
-        `${process.env.BASE_API_URL}/files/download/${response.data.id}`,
-        `${documentDirectory}${orderUri}.pdf`,
-        {},
-      )
-
-      const orderDownloaded = {
-        id: String(uuid.v4()),
-        uri: orderUri,
-        date: new Date(),
-      }
 
       const orderExists = orders.find((order) => order.uri === orderUri)
 
@@ -79,6 +66,28 @@ export function OrderFileSystemContextProvider({
           placement: 'top',
           bgColor: 'red.500',
         })
+      }
+
+      const response = await api.post('/files', { link: order.LINK })
+
+      const { status } = await downloadAsync(
+        `${process.env.BASE_API_URL}/files/download/${response.data.id}`,
+        `${documentDirectory}${orderUri}.pdf`,
+        {},
+      )
+
+      if (status === 404) {
+        return toast.show({
+          title: 'Ocorreu um problema ao fazer o download, tente novamente!',
+          placement: 'top',
+          bgColor: 'red.500',
+        })
+      }
+
+      const orderDownloaded = {
+        id: String(uuid.v4()),
+        uri: orderUri,
+        date: new Date(),
       }
 
       await saveOrderStorage(orderDownloaded)
