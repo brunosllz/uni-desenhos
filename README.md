@@ -16,7 +16,8 @@
 
 ## [](https://github.com/brunosllz/todo-list#--sobre-o-projeto) 💻 Sobre o projeto
 
-Projeto desenvolvido para empresa [Unicasa Indústria de Móveis](https://www.unicasamoveis.com.br/), tendo como premissa a consulta de desenhos aparit do número da ordem de fabricação.
+Projeto desenvolvido para empresa [Unicasa Indústria de Móveis](https://www.unicasamoveis.com.br/), tendo como premissa a consulta de desenhos a partir da busca ou leitura do código de barras do número da ordem de fabricação. <br/>
+O App foi construído para uso exclusivo na plataforma Android.
 
 ---
 
@@ -40,6 +41,8 @@ $ npm install ou yarn
 $ npx expo start
 
 ```
+
+> Está aplicação utiliza uma API local para comunicação, por tanto, para que você possa utilizar todas as funcionalidades do App será necessário o desenvolvimento de uma API para que possa verificar e buscar os desenhos.
 
 ---
 
