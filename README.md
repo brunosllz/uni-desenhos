@@ -37,8 +37,10 @@ O App foi construído para uso exclusivo na plataforma Android.
 $ git clone https://github.com/brunosllz/uni-desenhos.git
 # Instale as dependências
 $ npm install ou yarn
+# Gerar bundle da aplicação no dispositivo físico ou emulador.
+$ npx expo run:android
 # Execute a aplicação
-$ npx expo start
+$ npx expo start --dev-client
 
 ```
 
@@ -50,7 +52,8 @@ $ npx expo start
 
  Aqui você pode visualizar um pouco do layout e funcionalidades da aplicação.
  
- ![gif](https://github.com/brunosllz/todo-list/blob/main/src/assets/app.gif)
+ ![gif](https://github.com/brunosllz/uni-desenhos/blob/main/assets/gif-thumb-github.gif)
+ ![gif](https://github.com/brunosllz/uni-desenhos/blob/main/assets/gif-thumb-github-2.gif)
 
 ---
 
