@@ -12,33 +12,37 @@
 
 <br/>
 
-![](https://github.com/brunosllz/todo-list/blob/main/src/assets/cover.png)
+![](https://github.com/brunosllz/uni-desenhos/blob/main/assets/cover-github.png)
 
 ## [](https://github.com/brunosllz/todo-list#--sobre-o-projeto) 💻 Sobre o projeto
 
-Projeto desenvolvido no Primeiro desafio da trilha de ReactJS no Ignite da [Rocketseat](https://www.rocketseat.com.br/), o projeto tem como premissa reforça os conceitos basicos do React como estados, imutabilidade do estado, listas e chaves no ReactJS, propriedades e componentização.
+Projeto desenvolvido para empresa [Unicasa Indústria de Móveis](https://www.unicasamoveis.com.br/), tendo como premissa a consulta de desenhos a partir da busca ou leitura do código de barras do número da ordem de fabricação. <br/>
+O App foi construído para uso exclusivo na plataforma Android.
 
 ---
 
 ## [](https://github.com/brunosllz/todo-list#-%EF%B8%8F-funcionalidades) ⚙️ Funcionalidades
 
-- Cadastrar tarefa
-- Deletar tarefa
-- Marcar tarefa como concluída
-- Mostrar o processo de conclusão das tarefas
+- Consulta de desenhos
+- Download de PDF
+- Visualização de PDF
+- Leia de código de barras
+- Identificador do código de barra e seu tipo
 
 ---
 
 #### 🧭 Rodando a aplicação
 ```bash
 # Clone este repositório
-$ git clone https://github.com/brunosllz/todo-list.git
+$ git clone https://github.com/brunosllz/uni-desenhos.git
 # Instale as dependências
 $ npm install ou yarn
 # Execute a aplicação
-$ npm run dev ou yarn dev
+$ npx expo start
 
 ```
+
+> Está aplicação utiliza uma API local para comunicação, por tanto, para que você possa utilizar todas as funcionalidades do App será necessário o desenvolvimento de uma API para que possa verificar e buscar os desenhos.
 
 ---
 
@@ -54,12 +58,16 @@ $ npm run dev ou yarn dev
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-- Vite
+- Expo
+- React Native
+- React Navigation
+- Expo barcode Scanner
+- Expo file system
+- Reanimated2
+- React Native vision camera
+- Moti
 - Typescript
-- TailwildCss
-- React Hook Form
-- Radix
 
 
-> Veja o arquivo [package.json](https://github.com/brunosllz/todo-list/blob/main/package.json)
+> Veja o arquivo [package.json](https://github.com/brunosllz/uni-desenhos/blob/main/package.json)
 ---
